@@ -14,7 +14,7 @@ const produtos = [
     preco: "R$ 89,90",
     imagens: [
       "img/roupas/camisa1.jpg",
-      "img/roupas/camisa2.jpg",
+      "img/roupas/camisa2.jpg"
     ],
   },
   {
@@ -23,41 +23,31 @@ const produtos = [
     preco: "R$ 99,00",
     imagens: [
       "img/livros/cleancode1.jpg",
-      "img/livros/cleancode2.jpg",
-    ],
-  },
-  {
-    nome: "Fone de Ouvido Bluetooth",
-    categoria: "eletronicos",
-    preco: "R$ 249,00",
-    imagens: [
-      "img/eletronicos/fone1.jpg",
-      "img/eletronicos/fone2.jpg",
-      "img/eletronicos/fone3.jpg",
+      "img/livros/cleancode2.jpg"
     ],
   },
 ];
 
-const lista = document.getElementById("listaProdutos");
+const container = document.getElementById("produtosContainer");
 const filtro = document.getElementById("filtroCategoria");
 
-function renderProdutos(categoria = "todas") {
-  lista.innerHTML = "";
+function renderizarProdutos(filtroSelecionado) {
+  container.innerHTML = "";
 
-  const filtrados =
-    categoria === "todas"
-      ? produtos
-      : produtos.filter((p) => p.categoria === categoria);
+  const filtrados = filtroSelecionado === "todas"
+    ? produtos
+    : produtos.filter(p => p.categoria === filtroSelecionado);
 
-  filtrados.forEach((produto) => {
+  filtrados.forEach((p) => {
     const card = document.createElement("div");
     card.classList.add("card");
 
-    // Carrossel
     const carousel = document.createElement("div");
     carousel.classList.add("carousel");
 
-    produto.imagens.forEach((imgSrc, i) => {
+    let index = 0;
+
+    p.imagens.forEach((imgSrc, i) => {
       const img = document.createElement("img");
       img.src = imgSrc;
       if (i === 0) img.classList.add("active");
@@ -65,59 +55,65 @@ function renderProdutos(categoria = "todas") {
     });
 
     const btnPrev = document.createElement("button");
+    btnPrev.textContent = "‹";
     btnPrev.classList.add("prev");
-    btnPrev.innerHTML = "‹";
 
     const btnNext = document.createElement("button");
+    btnNext.textContent = "›";
     btnNext.classList.add("next");
-    btnNext.innerHTML = "›";
 
     carousel.appendChild(btnPrev);
     carousel.appendChild(btnNext);
 
-    let imgIndex = 0;
-    const imgs = carousel.querySelectorAll("img");
+    // Navegação com clique
+    btnPrev.addEventListener("click", () => mudarImagem(-1));
+    btnNext.addEventListener("click", () => mudarImagem(1));
 
-    btnNext.addEventListener("click", () => {
-      imgs[imgIndex].classList.remove("active");
-      imgIndex = (imgIndex + 1) % imgs.length;
-      imgs[imgIndex].classList.add("active");
+    // Função de troca de imagem
+    function mudarImagem(direcao) {
+      const imagens = carousel.querySelectorAll("img");
+      imagens[index].classList.remove("active");
+      index = (index + direcao + imagens.length) % imagens.length;
+      imagens[index].classList.add("active");
+    }
+
+    // --- Suporte a toque (swipe) ---
+    let startX = 0;
+    let endX = 0;
+
+    carousel.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
     });
 
-    btnPrev.addEventListener("click", () => {
-      imgs[imgIndex].classList.remove("active");
-      imgIndex = (imgIndex - 1 + imgs.length) % imgs.length;
-      imgs[imgIndex].classList.add("active");
+    carousel.addEventListener("touchmove", (e) => {
+      endX = e.touches[0].clientX;
     });
 
-    // Conteúdo do Card
-    const content = document.createElement("div");
-    content.classList.add("card-content");
-    content.innerHTML = `
-      <h3>${produto.nome}</h3>
-      <p>Categoria: ${produto.categoria}</p>
-      <span>${produto.preco}</span>
+    carousel.addEventListener("touchend", () => {
+      if (startX - endX > 50) {
+        mudarImagem(1); // deslizou para a esquerda
+      } else if (endX - startX > 50) {
+        mudarImagem(-1); // deslizou para a direita
+      }
+    });
+    // -------------------------------
+
+    const info = document.createElement("div");
+    info.classList.add("card-info");
+    info.innerHTML = `
+      <h3>${p.nome}</h3>
+      <p>${p.preco}</p>
+      <a class="btn-comprar" href="https://wa.me/55SEUNUMERO?text=Olá! Quero comprar o ${encodeURIComponent(p.nome)}" target="_blank">Comprar no WhatsApp</a>
     `;
 
-    // Botão WhatsApp
-    const msg = encodeURIComponent(`Olá! Tenho interesse no produto: ${produto.nome}.`);
-    const numero = "5599999999999"; // coloque seu número com DDI (ex: 55 + DDD + número)
-    const linkWhats = `https://wa.me/${numero}?text=${msg}`;
-
-    const botao = document.createElement("a");
-    botao.href = linkWhats;
-    botao.target = "_blank";
-    botao.classList.add("btn-comprar");
-    botao.textContent = "Comprar pelo WhatsApp";
-
-    content.appendChild(botao);
-
     card.appendChild(carousel);
-    card.appendChild(content);
-    lista.appendChild(card);
+    card.appendChild(info);
+    container.appendChild(card);
   });
 }
 
-filtro.addEventListener("change", (e) => renderProdutos(e.target.value));
+filtro.addEventListener("change", (e) => {
+  renderizarProdutos(e.target.value);
+});
 
-renderProdutos();
+renderizarProdutos("todas");
