@@ -9,21 +9,57 @@ const produtos = [
     ],
   },
   {
-    nome: "Camisa Polo Azul",
-    categoria: "roupas",
-    preco: "R$ 89,90",
+    nome: "Smartphone Galaxy S21",
+    categoria: "eletronicos",
+    preco: "R$ 3.499,00",
     imagens: [
-      "img/roupas/camisa1.jpg",
-      "img/roupas/camisa2.jpg"
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
     ],
   },
   {
-    nome: "Livro: Clean Code",
-    categoria: "livros",
-    preco: "R$ 99,00",
+    nome: "Smartphone Galaxy S21",
+    categoria: "eletronicos",
+    preco: "R$ 3.499,00",
     imagens: [
-      "img/livros/cleancode1.jpg",
-      "img/livros/cleancode2.jpg"
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
+    ],
+  },
+  {
+    nome: "Smartphone Galaxy S21",
+    categoria: "eletronicos",
+    preco: "R$ 3.499,00",
+    imagens: [
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
+    ],
+  },
+  {
+    nome: "Smartphone Galaxy S21",
+    categoria: "eletronicos",
+    preco: "R$ 3.499,00",
+    imagens: [
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
+    ],
+  },
+  {
+    nome: "Smartphone Galaxy S21",
+    categoria: "eletronicos",
+    preco: "R$ 3.499,00",
+    imagens: [
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
+    ],
+  },
+  {
+    nome: "Smartphone Galaxy S21",
+    categoria: "eletronicos",
+    preco: "R$ 3.499,00",
+    imagens: [
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
     ],
   },
 ];
@@ -47,13 +83,15 @@ function renderizarProdutos(filtroSelecionado) {
 
     let index = 0;
 
-    p.imagens.forEach((imgSrc, i) => {
+    // --- Imagens ---
+    p.imagens.forEach((src, i) => {
       const img = document.createElement("img");
-      img.src = imgSrc;
+      img.src = src;
       if (i === 0) img.classList.add("active");
       carousel.appendChild(img);
     });
 
+    // --- Botões (para desktop) ---
     const btnPrev = document.createElement("button");
     btnPrev.textContent = "‹";
     btnPrev.classList.add("prev");
@@ -65,38 +103,45 @@ function renderizarProdutos(filtroSelecionado) {
     carousel.appendChild(btnPrev);
     carousel.appendChild(btnNext);
 
-    // Navegação com clique
-    btnPrev.addEventListener("click", () => mudarImagem(-1));
-    btnNext.addEventListener("click", () => mudarImagem(1));
+    // --- Dots (sempre renderizados, mas visíveis só no celular via CSS) ---
+    const dotsContainer = document.createElement("div");
+    dotsContainer.classList.add("dots");
 
-    // Função de troca de imagem
-    function mudarImagem(direcao) {
+    p.imagens.forEach((_, i) => {
+      const dot = document.createElement("div");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => mudarImagem(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    // --- Função de troca de imagem ---
+    function mudarImagem(novoIndex) {
       const imagens = carousel.querySelectorAll("img");
+      const dots = dotsContainer.querySelectorAll(".dot");
       imagens[index].classList.remove("active");
-      index = (index + direcao + imagens.length) % imagens.length;
+      dots[index].classList.remove("active");
+      index = novoIndex;
       imagens[index].classList.add("active");
+      dots[index].classList.add("active");
     }
 
-    // --- Suporte a toque (swipe) ---
+    // --- Botões (desktop) ---
+    btnPrev.addEventListener("click", () => {
+      mudarImagem((index - 1 + p.imagens.length) % p.imagens.length);
+    });
+    btnNext.addEventListener("click", () => {
+      mudarImagem((index + 1) % p.imagens.length);
+    });
+
+    // --- Swipe (celular) ---
     let startX = 0;
-    let endX = 0;
-
-    carousel.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
+    carousel.addEventListener("touchstart", (e) => startX = e.touches[0].clientX);
+    carousel.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) mudarImagem((index + 1) % p.imagens.length);
+      else if (endX - startX > 50) mudarImagem((index - 1 + p.imagens.length) % p.imagens.length);
     });
-
-    carousel.addEventListener("touchmove", (e) => {
-      endX = e.touches[0].clientX;
-    });
-
-    carousel.addEventListener("touchend", () => {
-      if (startX - endX > 50) {
-        mudarImagem(1); // deslizou para a esquerda
-      } else if (endX - startX > 50) {
-        mudarImagem(-1); // deslizou para a direita
-      }
-    });
-    // -------------------------------
 
     const info = document.createElement("div");
     info.classList.add("card-info");
@@ -107,13 +152,11 @@ function renderizarProdutos(filtroSelecionado) {
     `;
 
     card.appendChild(carousel);
+    card.appendChild(dotsContainer);
     card.appendChild(info);
     container.appendChild(card);
   });
 }
 
-filtro.addEventListener("change", (e) => {
-  renderizarProdutos(e.target.value);
-});
-
+filtro.addEventListener("change", (e) => renderizarProdutos(e.target.value));
 renderizarProdutos("todas");
