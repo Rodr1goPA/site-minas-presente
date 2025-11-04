@@ -1,62 +1,8 @@
 const produtos = [
   {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
-    imagens: [
-      "img/produtos/canecas/cn0101.png",
-      "img/produtos/canecas/cn0102.png",
-    ],
-  },
-  {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
-    imagens: [
-      "img/produtos/canecas/cn0101.png",
-      "img/produtos/canecas/cn0102.png",
-    ],
-  },
-  {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
-    imagens: [
-      "img/produtos/canecas/cn0101.png",
-      "img/produtos/canecas/cn0102.png",
-    ],
-  },
-  {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
-    imagens: [
-      "img/produtos/canecas/cn0101.png",
-      "img/produtos/canecas/cn0102.png",
-    ],
-  },
-  {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
-    imagens: [
-      "img/produtos/canecas/cn0101.png",
-      "img/produtos/canecas/cn0102.png",
-    ],
-  },
-  {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
-    imagens: [
-      "img/produtos/canecas/cn0101.png",
-      "img/produtos/canecas/cn0102.png",
-    ],
-  },
-  {
-    nome: "Smartphone Galaxy S21",
-    categoria: "eletronicos",
-    preco: "R$ 3.499,00",
+    nome: "Caneca personalizada com Nome e Frase",
+    categoria: "canecas",
+    preco: "$40,00",
     imagens: [
       "img/produtos/canecas/cn0101.png",
       "img/produtos/canecas/cn0102.png",
