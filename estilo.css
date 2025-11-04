@@ -5,9 +5,57 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* 🔹 Barra superior */
+.top-bar {
+  background: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+.top-bar .contact-info span {
+  margin-right: 15px;
+}
+
+.top-bar .social-icons a img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.top-bar .social-icons a img:hover {
+  opacity: 0.7;
+}
+
+/* 🔹 Cabeçalho principal */
+header {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+}
+
+h1 {
+  flex-grow: 1;
+  text-align: center;
+  color: #333;
+  font-size: 1.6rem;
+}
+
 body {
   background: #f7f8fa;
-  padding: 20px;
 }
 
 header {
@@ -135,6 +183,16 @@ h1 {
 
 /* --- Responsivo --- */
 @media (max-width: 768px) {
+
+  .top-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .contact-info{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
   #produtosContainer {
     grid-template-columns: 1fr;
   }
@@ -261,6 +319,10 @@ h1 {
 
   .carousel img {
     height: 320px;
+  }
+
+   .top-bar{
+    gap: 10px;
   }
 }
 

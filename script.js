@@ -94,7 +94,7 @@ function renderizarProdutos(filtroSelecionado) {
     info.innerHTML = `
       <h3>${p.nome}</h3>
       <p>${p.preco}</p>
-      <a class="btn-comprar" href="https://wa.me/55SEUNUMERO?text=Olá! Quero comprar o ${encodeURIComponent(p.nome)}" target="_blank">Comprar no WhatsApp</a>
+      <a class="btn-comprar" href="https://wa.me/553172449377?text=MENSAGEM" ${encodeURIComponent(p.nome)}" target="_blank">Comprar no WhatsApp</a>
     `;
 
     card.appendChild(carousel);

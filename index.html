@@ -7,14 +7,32 @@
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
+  <div class="top-bar">
+    <div class="contact-info">
+      <span><strong>Telefone:</strong> (32) 97244-9377</span>
+      <span><strong>Email:</strong> rodrigo.minaspresente@gmail.com</span>
+    </div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/minaspresente/"><img src="img/logo/logo-instagram.png" alt="logotipo-instagram"></a>
+      <a href="https://www.facebook.com/profile.php?id=61581946471208&locale=pt_BR"><img src="img/logo/logo-facebook.png" alt="logotipo-facebook"></a>
+      <a href="https://wa.me/553172449377?text=MENSAGEM"><img src="img/logo/logo-whatsapp.png" alt="logotipo-whatsapp"></a>
+    </div>
+  </div>
   <header>
-    <h1>Catálogo de Produtos</h1>
-    <select id="filtroCategoria">
-      <option value="todas">Todas as categorias</option>
-      <option value="canecas">Canecas</option>
-    </select>
-  </header>
+    <div class="logo">
+      <img src="img/logo/logo.png" alt="Logo da Loja">
+    </div>
 
+    <h1></h1>
+
+    <!-- Menu dropdown -->
+    <nav id="menuNav" class="menu-nav">
+      <select id="filtroCategoria">
+        <option value="todas">Todas as categorias</option>
+        <option value="canecas">Canecas</option>
+      </select>
+    </nav>
+  </header>
   <main id="produtosContainer"></main>
 
   <script src="script.js"></script>
