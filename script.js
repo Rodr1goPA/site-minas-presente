@@ -1,7 +1,19 @@
 const produtos = [
-  {
+    {
     nome: "Caneca personalizada com Nome e Frase",
-    categoria: "canecas",
+    codigo: "cn01",
+    categoria: "caneca",
+    preco: "$40,00",
+    imagens: [
+      "img/produtos/canecas/cn0101.png",
+      "img/produtos/canecas/cn0102.png",
+    ],
+  },
+
+    {
+    nome: "Caneca personalizada com Nome e Frase",
+    codigo: "sq01",
+    categoria: "squeez",
     preco: "$40,00",
     imagens: [
       "img/produtos/canecas/cn0101.png",
@@ -94,9 +106,7 @@ function renderizarProdutos(filtroSelecionado) {
     info.innerHTML = `
       <h3>${p.nome}</h3>
       <p>${p.preco}</p>
-      <a class="btn-comprar" href="https://wa.me/553172449377?text=MENSAGEM" ${encodeURIComponent(p.nome)}" target="_blank">Comprar no WhatsApp</a>
-    `;
-
+      <a class="btn-comprar" href="https://wa.me/553172449377?text=Olá! Quero comprar essa ${encodeURIComponent(p.categoria)} modelo ${encodeURIComponent(p.codigo)}!" target="_blank">Comprar no WhatsApp</a>`;
     card.appendChild(carousel);
     card.appendChild(dotsContainer);
     card.appendChild(info);

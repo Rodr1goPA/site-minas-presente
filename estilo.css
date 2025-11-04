@@ -6,6 +6,11 @@
 }
 
 /* 🔹 Barra superior */
+.topbar-header{
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
 .top-bar {
   background: #333;
   color: #fff;
@@ -79,6 +84,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   justify-items: center;
+  padding-top: 200px;
 }
 
 .card {
